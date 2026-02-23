@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-99FK13PW8Q"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-99FK13PW8Q');
+		</script>
+		<meta charset="UTF-8"/>
+		<title>MathJax Test</title>
+		<link rel="stylesheet" href="../main.css">
+	</head>
+
+	<body>
+		<!-- Language selection -->
+		<div>
+			<div>
+				[<a href="?lang=en" id="lang-en">EN</a>] [<a href="?lang=jp" id="lang-jp">JP</a>]
+			</div>
+		</div>
+		<div class="str_title" id="page-title" >MathJax</div>
+
+		<div id="container">
+			<div class="str_subtitle" id="notice-title">Notice</div>
+			<ul>
+				<li id="notice-text">
+					We use Google Analytics for site analytics. <a href="https://policies.google.com/privacy">Google Privacy Policy</a>
+				</li>
+			</ul>
+		</div>
+
+		<div id="container">
+			<div class="str_subtitle" id="content-title">Contents</div>
+			<ul>
+				<li>
+					<a href="contents/MathJaxRenderer.html">
+						<p id="content-000-title">MathJax Renderer</p>
+					</a>
+				</li>
+				<li>
+					<a href="contents/DynamicPolynomialGenerator.html">
+						<p id="content-001-title">Dynamic Polynomial Generator</p>
+					</a>
+				</li>
+			</ul>
+		</div>
+
+		<div id="container">
+			<div class="str_subtitle" id="navigation-title">Navigation</div>
+			<ul>
+				<li>
+					<a href='../' id="top-link">Back to Top</a>
+				</li>
+			</ul>
+		</div>
+
+		<script>
+			// Language data for English and Japanese
+			const languageData = {
+				en: {
+					pageTitle: "LaTeX(MathJax) Expression Test",
+					noticeTitle: "Notice",
+					noticeText: "We use Google Analytics for site analytics. <a href='https://policies.google.com/privacy'>Google Privacy Policy</a>",
+					contentTitle: "Content",
+					contents: [
+						"MathJax Renderer",
+						"Dynamic Polynomial Generator"
+					],
+					navigationTitle: "Navigation",
+					topLink: "Back to Top",
+					amazonTitle: "Amazon",
+					amazonText: "This site uses Amazon Associates.",
+					amazonAssociate: "Amazon Associate"
+				},
+				jp: {
+					pageTitle: "LaTeX(MathJax)表現テスト",
+					noticeTitle: "お知らせ",
+					noticeText: "アクセス解析のため、Google Analytics を利用しています。<a href='https://policies.google.com/privacy'>Google プライバシーポリシー</a>",
+					contentTitle: "コンテンツ",
+					contents: [
+						"数式表示テスト",
+						"多項式の表現"
+					],
+					navigationTitle: "移動",
+					topLink: "トップページへ",
+					amazonTitle: "Amazon",
+					amazonText: "当HPはAmazonアソシエイトを利用しています。",
+					amazonAssociate: "Amazonアソシエイト"
+				}
+			};
+
+			// Function to get language from URL parameters
+			function getLangFromURL() {
+				const params = new URLSearchParams(window.location.search);
+				return params.get('lang') || 'en'; // Default to English if no language is specified
+			}
+
+			// Function to switch language based on selected language
+			function switchLanguage(lang) {
+				const data = languageData[lang];
+				document.getElementById('page-title').textContent = data.pageTitle;
+				document.getElementById('notice-title').textContent = data.noticeTitle;
+				document.getElementById('notice-text').innerHTML = data.noticeText;
+				document.getElementById('content-title').textContent = data.contentTitle;
+				document.getElementById('content-000-title').textContent = data.contents[0];
+				document.getElementById('content-001-title').textContent = data.contents[1];
+				document.getElementById('navigation-title').textContent = data.navigationTitle;
+				document.getElementById('top-link').textContent = data.topLink;
+				document.getElementById('amazon-title').textContent = data.amazonTitle;
+				document.getElementById('amazon-text').textContent = data.amazonText;
+				document.getElementById('amazon-associate').textContent = data.amazonAssociate;
+			}
+
+			// Get the language from the URL or default to English
+			const lang = getLangFromURL();
+			switchLanguage(lang);
+
+		</script>
+	</body>
+</html>

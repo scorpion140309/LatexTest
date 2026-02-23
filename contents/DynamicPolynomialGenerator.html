@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Dynamic Polynomial Generator (High Degree First)</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+	<script src="DynamicPolynomialGenerator.js"></script>
+</head>
+<body>
+	<div id="button-container">
+		<button id="back-to-parent-site-button" onclick="location.href='../'">Back to MathJax Test</button>
+	</div>
+
+	<h3>Variable Name</h3>
+	<input type="text" id="variable" value="x">
+
+	<h3>Coefficients (highest degree first, comma/space allowed; fractions allowed)</h3>
+	<input type="text" id="coeffs" value="-3/4, 0, 1/2, -15, 10">
+
+	<h3>Rendered Polynomial</h3>
+	<div id="output"></div>
+
+	<h3>Generated LaTeX String</h3>
+	<pre id="raw"></pre>
+	<button id="copyBtn">Copy to Clipboard</button>
+
+	<script>
+		// Update formula dynamically
+		function updateFormula() {
+			const variable = document.getElementById("variable").value.trim() || "x";
+			const rawInput = document.getElementById("coeffs").value;
+
+			const coeffs = rawInput.split(/[\s,、]+/);
+
+			const formula = mjGeneratePolynomial(variable, coeffs);
+
+			const latexForDisplay = `\\(${formula}\\)`;
+			document.getElementById("output").innerHTML = latexForDisplay;
+			document.getElementById("raw").textContent = formula;
+
+			MathJax.typesetPromise();
+		}
+
+		// Copy LaTeX string
+		document.getElementById("copyBtn").addEventListener("click", () => {
+			const text = document.getElementById("raw").textContent;
+			navigator.clipboard.writeText(text).then(() => {
+		//		alert("LaTeX code copied to clipboard!");
+			});
+		});
+
+		// Live update
+		document.getElementById("variable").addEventListener("input", updateFormula);
+		document.getElementById("coeffs").addEventListener("input", updateFormula);
+
+		// Initial render
+		updateFormula();
+	</script>
+
+</body>
+</html>

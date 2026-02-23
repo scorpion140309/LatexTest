@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>MathJax Renderer</title>
+	<link rel="stylesheet" href="style.css">
+
+	<!-- MathJax CDN -->
+	<script>
+		window.MathJax = {
+			tex: {
+				inlineMath: [['$', '$'], ['\\(', '\\)']],
+				displayMath: [['$$', '$$'], ['\\[', '\\]']]
+			},
+			svg: { fontCache: 'global' }
+		};
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+
+<body>
+	<div id="button-container">
+		<button id="back-to-parent-site-button" onclick="location.href='../'">Back to MathJax Test</button>
+	</div>
+
+	<div class="str_title">MathJax Formula Renderer</div>
+
+	<div id="container">
+		<div>Template</div>
+		<button id="btnSinTheorem">sin theorem</button>
+		<button id="btnCosTheorem">cos theorem</button>
+		<button id="btnCircleArea">circle area</button>
+		<button id="btnSphereVolume">sphere volume</button>
+		<button id="btnOneSixFormula">the 1/6 formula</button>
+		<button id="btnQuadraticFormula">quadratic formula</button>
+		
+	</div>
+
+	<div id="container">
+		<textarea id="input">\int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}</textarea>
+	</div>
+	<div id="output"></div>
+
+	<script>
+		const ID_SIN_THEOREM = 0;
+		const ID_COS_THEOREM = 1;
+		const ID_CIRCLE_AREA = 2;
+		const ID_SPHERE_VOLUME = 3;
+		const ID_ONE_SIX_FORMULA = 4;
+		const ID_QUAD_FORMULA = 5;
+
+		const aryCodeLatex = [
+			`\\frac{a}{sinA} = \\frac{b}{sinB} = \\frac{c}{sinC} = 2R`,
+			`a^{2} = b^{2} + c^{2} - 2\\,bc\\,cos A`,
+			`S = \\pi r^{2}`,
+			`V = \\frac{3}{4} \\pi r^{3}`,
+			//"\\int_\\alpha^\\beta (x-\\alpha)(x-\\beta) dx = \\frac{1}{6}(\\beta-\\alpha)^{3}",
+			`\\begin{aligned}
+I &= \\int_\\alpha^\\beta (x-\\alpha)(x-\\beta)\\ dx \\\\
+&= \\int_\\alpha^\\beta \\left(x^2-(\\alpha+\\beta)x+\\alpha\\beta\\right)\\ dx \\\\
+&= \\left[\\frac{x^3}{3}-\\frac{\\alpha+\\beta}{2}x^2+\\alpha\\beta x\\right]_\\alpha^\\beta \\\\
+&= \\left(\\frac{\\beta^3}{3}-\\frac{\\alpha+\\beta}{2}\\beta^2+\\alpha\\beta^2\\right)-\\left(\\frac{\\alpha^3}{3}-\\frac{\\alpha+\\beta}{2}\\alpha^2+\\alpha^2\\beta\\right) \\\\
+&= -\\frac{1}{6} \\left(\\beta^3-3\\alpha^2\\beta+3\\alpha\\beta^2-\\beta^3\\right)\\\\
+&= -\\frac{1}{6}(\\beta-\\alpha)^3
+\\end{aligned}`,
+			`ax^2 + bx + c = 0 \\ (a \\ne 0) \\quad \\Rightarrow\\\\ \\quad x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}`
+		];
+
+		function readTemplate(aId) {
+			const codeLatex = aryCodeLatex[aId];
+			const textarea = document.getElementById("input");
+			textarea.value = codeLatex;
+		}
+
+		function initInputCode() {
+			const id = Math.floor(Math.random() * aryCodeLatex.length);
+			readTemplate(id);
+		}
+
+		function renderMath() {
+			const strInputSrc = document.getElementById("input").value;
+			const strInput = `$$` + strInputSrc + `$$`;
+			const output = document.getElementById("output");
+			output.innerHTML = strInput;
+
+			// Re-render using MathJax
+			MathJax.typesetPromise([output]);
+		}
+
+		// Automatically render when the page is loaded
+		document.addEventListener("DOMContentLoaded", function () {0
+			initInputCode();
+			renderMath();
+		});
+
+		// Live Rendering
+		document.addEventListener("input", function () {
+			renderMath();
+		});
+
+		// Use template
+		document.getElementById("btnSinTheorem").addEventListener("click", () => {
+			readTemplate(ID_SIN_THEOREM);
+			renderMath();
+		});
+		document.getElementById("btnCosTheorem").addEventListener("click", () => {
+			readTemplate(ID_COS_THEOREM);
+			renderMath();
+		});
+		document.getElementById("btnCircleArea").addEventListener("click", () => {
+			readTemplate(ID_CIRCLE_AREA);
+			renderMath();
+		});
+		document.getElementById("btnSphereVolume").addEventListener("click", () => {
+			readTemplate(ID_SPHERE_VOLUME);
+			renderMath();
+		});
+		document.getElementById("btnOneSixFormula").addEventListener("click", () => {
+			readTemplate(ID_ONE_SIX_FORMULA);
+			renderMath();
+		});
+		document.getElementById("btnQuadraticFormula").addEventListener("click", () => {
+			readTemplate(ID_QUAD_FORMULA);
+			renderMath();
+		});
+
+	</script>
+
+</body>
+</html>
